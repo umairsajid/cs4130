@@ -33,7 +33,7 @@ public class Solver
 
 
 
-	return 42;
+	return 42n;
 
 
     }

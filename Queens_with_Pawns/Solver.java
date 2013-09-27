@@ -34,7 +34,14 @@ public class Solver
 	int board_size = size; 
 	int num_queens = size;
 	ArrayList[Point{rank==2}] open_spots = new ArrayList[Point{rank==2}]();
-	
+
+
+	/* add all available spaces to our open spaces array */	
+	for(int i = 0;i<size;i++){ /* Width */
+		for(int j = 0;j<size; j++){ /* height*/
+			open_spots.add(Point.make(j,i);
+		}	
+	}	
 
 
 	return 42;

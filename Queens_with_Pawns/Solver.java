@@ -48,4 +48,11 @@ public class Solver
 
 
     }
+
+
+   /* we'll need to be blocking out points frequently */
+   public def block(point: Point{rank==2}, board: ArrayList[Point{rank==2}]){
+
+
+   }
 }

@@ -30,10 +30,14 @@ public class Solver
 	 * Assuming we work directly with arrays (not lists), and do certain things asynchronously
 	 * enough, this naive approach ought to do well enough.
 	 */
+	
+	int board_size = size; 
+	int num_queens = size;
 	ArrayList[Point{rank==2}] open_spots = new ArrayList[Point{rank==2}]();
+	
 
 
-	return 42n;
+	return 42;
 
 
     }

@@ -52,17 +52,29 @@ public class Solver
 	Console.ERR.println(open_spots);
 
         /* call place on each space in the first free column. will need to be making copies of the board */
-	while(open_spots.size()>0){
-		break;
-	}
+	
+
 
 	return count;
     }
 
     /** Place a queen asynchronously in each of the spaces free in the first column (-,x) */
-    public def place(space: int, board:ArrayList[Point{rank==2}])  
+    public def place(column: int, board:ArrayList[Point{rank==2}])  
     {
-        // Will need to call block for spaces on each placed queen
+ 
+	/* Steps:
+	 * 1. Duplicate board.
+	 * 2. Place queen
+	 * 3. Call block_queens 
+	 * 4. call place with column +1
+   	 *
+	 * If this method can place N queens before the board is empty,
+	 * it is successful and should return 1. Else we could not place the queens
+	 * in any subconfiguration base on the start config, so return 0. Count will 
+	 * call place once for each of the N rows in the first column, and sum the results
+         */
+
+    
     }
 
 
@@ -77,15 +89,15 @@ public class Solver
     {
     // Block all in same column
         for(var i:Int = 0n; i < board.size(); i++) {
-		//if(board.get(0)
+		//Remove point if column equals point column
 	}
     // Block all in same row
         for(var j:Int = 0n; j < board.size(); j++) {
-    	
+		//Remove point if row equals point row
 	}
     // Block all on diagonal
         for(var k:Int = 0n; k < board.size(); k++) {
-
+		//Remove point if (x,y) = (point_x + k, point_y + k) 
 	}
     }
 

@@ -34,44 +34,44 @@ public class Solver
 
 
 	/* add all available spaces to our open spaces array */	
-//	for(int i = 0;i<size;i++){ 
-//		for(int j = 0;j<size; j++){ 
-//			open_spots.add(Point.make(j,i);
-//		}	
-//	}
+        for(var i:Int = 0n; i < size; i++) {
+		for(var j:Int = 0n;j<size; j++){ 
+			//open_spots.add(Point.make(j,i);
+		}	
+	}
 	
 	/* Block pawn spaces */
-//	while(pawns.size() > 0){
-//		block(pawns.get(0);
-//		pawns.remove(0);
-//	}
+	while(pawns.size() > 0){
+		block(pawns.get(0), open_spots);
+		pawns.removeFirst();
+	}
 
         /* call place on each space in the first free column. will need to be making copies of the board */
-//	while(open_spots.size()>0){
-//		break;
-//	}
+	while(open_spots.size()>0){
+		break;
+	}
 
 	return 42n;
     }
 
     /** Place a queen asynchronously in each of the spaces free in the first column (-,x) */
-//    public def place(space: int, board:ArrayList[Point{rank==2}]) : null
-//    {
-//        // Will need to call block for spaces on each placed queen
-//    }
+    public def place(space: int, board:ArrayList[Point{rank==2}])  
+    {
+        // Will need to call block for spaces on each placed queen
+    }
 
 
 
     /* we'll need to be blocking out points frequently */
-//    public def block(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) : null
-//    {
-//  }
+    public def block(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) 
+    {
+    }
 
-//    public def block_queen(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) : null
-//    {
+    public def block_queen(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) 
+    {
     // Block all in same column
     // Block all in same row
     // Block all on diagonal
-//    }
+    }
 
 }

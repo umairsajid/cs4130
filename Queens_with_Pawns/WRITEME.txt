@@ -1,0 +1,8 @@
+1. How did you improve your baseline implementation?
+2. What did/didn't work and why?
+3. What improvements could you make to the code given more time?
+
+
+
+
+

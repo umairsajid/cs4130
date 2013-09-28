@@ -52,7 +52,7 @@ public class Solver
 	while(open_spots.size()>0){
 
 
-
+		break;
 
 	}
 

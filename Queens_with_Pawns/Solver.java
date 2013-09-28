@@ -44,15 +44,32 @@ public class Solver
 	}	
 
 
-	return 42;
+
+        /* call place on each space in the first free column. will need to be making copies of the board */
+	while(open_spots.size()>0){
+
+
+
+
+	}
+
+	return count;
+    }
+
+    /* Place a queen asynchronously in each of the spaces free in the first column (-,x) */
+    private def place(space: int, board:ArrayList[Point{rank==2}]){
+
+
+        // Will need to call block for spaces on each placed queen
+    }
+
+
+
+    /* we'll need to be blocking out points frequently */
+    private def block(point: Point{rank==2}, board: ArrayList[Point{rank==2}]){
 
 
     }
 
 
-   /* we'll need to be blocking out points frequently */
-   public def block(point: Point{rank==2}, board: ArrayList[Point{rank==2}]){
-
-
-   }
 }

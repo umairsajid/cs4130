@@ -36,22 +36,27 @@ public class Solver
 	/* add all available spaces to our open spaces array */	
         for(var i:Int = 0n; i < size; i++) {
 		for(var j:Int = 0n;j<size; j++){ 
-			//open_spots.add(Point.make(j,i);
+			val pt : Point{rank==2} = [i,j];
+			open_spots.add(pt);
 		}	
 	}
 	
 	/* Block pawn spaces */
 	while(pawns.size() > 0){
+		Console.OUT.print(".");
 		block(pawns.get(0), open_spots);
 		pawns.removeFirst();
 	}
+
+	
+	Console.ERR.println(open_spots);
 
         /* call place on each space in the first free column. will need to be making copies of the board */
 	while(open_spots.size()>0){
 		break;
 	}
 
-	return 42n;
+	return count;
     }
 
     /** Place a queen asynchronously in each of the spaces free in the first column (-,x) */
@@ -65,13 +70,23 @@ public class Solver
     /* we'll need to be blocking out points frequently */
     public def block(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) 
     {
+	board.remove(point);
     }
 
-    public def block_queen(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) 
+    public def block_queen(point: Point{rank==2}, size:int, board: ArrayList[Point{rank==2}]) 
     {
     // Block all in same column
+        for(var i:Int = 0n; i < board.size(); i++) {
+		//if(board.get(0)
+	}
     // Block all in same row
+        for(var j:Int = 0n; j < board.size(); j++) {
+    	
+	}
     // Block all on diagonal
+        for(var k:Int = 0n; k < board.size(); k++) {
+
+	}
     }
 
 }

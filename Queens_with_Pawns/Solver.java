@@ -27,8 +27,6 @@ public class Solver
 	 * 3. Block out conflicting spaces
  	 * 4. Go to 2
 	 *
-	 * Assuming we work directly with arrays (not lists), and do certain things asynchronously
-	 * enough, this naive approach ought to do well enough.
 	 */
 	
 	int board_size = size; 
@@ -44,6 +42,11 @@ public class Solver
 	}	
 
 
+	/* Block pawn spaces */
+	while(pawns.size() > 0){
+		block(pawns.get(0);
+		pawns.remove(0);
+	}
 
         /* call place on each space in the first free column. will need to be making copies of the board */
 	while(open_spots.size()>0){
@@ -68,8 +71,15 @@ public class Solver
     /* we'll need to be blocking out points frequently */
     private def block(point: Point{rank==2}, board: ArrayList[Point{rank==2}]){
 
-
     }
 
+    private def block_queen(point: Point{rank==2}, board: ArrayList[Point{rank==2}]){
+    // Block all in same column
+
+    // Block all in same row
+
+    // Block all on diagonal
+
+    }
 
 }

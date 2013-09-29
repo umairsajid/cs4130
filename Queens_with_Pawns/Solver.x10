@@ -27,7 +27,6 @@ public class Solver
         val num_queens   : int;                  //number of queens successfully placed 
         val board_size   : int;                  // size of the board i.e. N 
 
-	count = 0n;
 	num_queens = size;
 	board_size = size; 
 	open_spots = new ArrayList[Point{rank==2}]();
@@ -53,24 +52,12 @@ public class Solver
 
         /* call place on each space in the first free column. will need to be making copies of the board */
 	val col_to_place : int = open_spots.get(0)(0) as Int;	
- 	for(var k:int = 0n;k<board_size;k++){
-		// Verify that we're only going to attempt to place
-		// queens in the col_to_place
-		if(col_to_place == open_spots.get(k)(0) as Int){
-		//Asynchronously place queen with a copy of the board
-
-		}
-		// else evaluated when there are less than N free spaces
-		// in the column col_to_place. we can terminate the for loop.
-		else {
-			break;
-		}
-	}
+	count = place(col_to_place, open_spots);
 	return count;
     }
 
     /** Place a queen asynchronously in each of the spaces free in the first column (-,x) */
-    public def place(column: int, board:ArrayList[Point{rank==2}])  
+    public def place(column: int, board:ArrayList[Point{rank==2}]) : int 
     {
  
 	/* Steps:
@@ -85,6 +72,20 @@ public class Solver
 	 * call place once for each of the N rows in the first column, and sum the results
          */
 
+ 	for(var i:int = 0n;i<board.size();i++){
+		// Verify that we're only going to attempt to place
+		// queens in the col_to_place
+		if(column == board.get(i)(0) as Int){
+		//Asynchronously place queen with a copy of the board
+		}
+		// else evaluated when there are less than N free spaces
+		// in the column col_to_place. we can terminate the for loop.
+		else {
+			break;
+		}
+	}
+
+	return 0n;
     
     }
 

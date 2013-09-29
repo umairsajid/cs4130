@@ -34,8 +34,8 @@ public class Solver
 
 
 	/* add all available spaces to our open spaces array */	
-        for(var i:Int = 0n; i < size; i++) {
-		for(var j:Int = 0n;j<size; j++){ 
+        for(var i:int = 0n; i < size; i++) {
+		for(var j:int = 0n;j<size; j++){ 
 			val pt : Point{rank==2} = [i,j];
 			open_spots.add(pt);
 		}	
@@ -52,9 +52,20 @@ public class Solver
 	Console.ERR.println(open_spots);
 
         /* call place on each space in the first free column. will need to be making copies of the board */
-	
+	val col_to_place : int = open_spots.get(0)(0) as Int;	
+ 	for(var k:int = 0n;k<board_size;k++){
+		// Verify that we're only going to attempt to place
+		// queens in the col_to_place
+		if(col_to_place == open_spots.get(k)(0) as Int){
+		//Asynchronously place queen with a copy of the board
 
-
+		}
+		// else evaluated when there are less than N free spaces
+		// in the column col_to_place. we can terminate the for loop.
+		else {
+			break;
+		}
+	}
 	return count;
     }
 
@@ -90,14 +101,23 @@ public class Solver
     // Block all in same column
         for(var i:Int = 0n; i < board.size(); i++) {
 		//Remove point if column equals point column
+		if(board.get(i)(0)==point(0)){
+			block(board.get(i), board);	
+		}
 	}
     // Block all in same row
         for(var j:Int = 0n; j < board.size(); j++) {
 		//Remove point if row equals point row
+		if(board.get(j)(0)==point(0)){
+			block(board.get(j), board);	
+		}
 	}
     // Block all on diagonal
         for(var k:Int = 0n; k < board.size(); k++) {
 		//Remove point if (x,y) = (point_x + k, point_y + k) 
+		if(board.get(k)(0)==point(0)){
+			block(board.get(k), board);	
+		}
 	}
     }
 

@@ -77,6 +77,8 @@ public class Solver
 		// queens in the col_to_place
 		if(column == board.get(i)(0) as Int){
 		//Asynchronously place queen with a copy of the board
+        		val new_board : ArrayList[Point{rank==2}];  // Arraylist of currently open points
+			new_board = board;		
 		}
 		// else evaluated when there are less than N free spaces
 		// in the column col_to_place. we can terminate the for loop.
@@ -86,7 +88,6 @@ public class Solver
 	}
 
 	return 0n;
-    
     }
 
 

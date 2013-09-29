@@ -22,13 +22,10 @@ public class Solver
      */
     public def solve(size: int, pawns: ArrayList[Point{rank==2}]) : int
     {
-        val count        : int;                     // Number of successful arrangements
         val open_spots   : ArrayList[Point{rank==2}];  // Arraylist of currently open points
-        val num_queens   : int;                  //number of queens successfully placed 
-        val board_size   : int;                  // size of the board i.e. N 
+        val num_queens   : int = size;                  //number of queens successfully placed 
+        val board_size   : int = size;                  // size of the board i.e. N 
 
-	num_queens = size;
-	board_size = size; 
 	open_spots = new ArrayList[Point{rank==2}]();
 
 
@@ -51,13 +48,17 @@ public class Solver
 	Console.ERR.println(open_spots);
 
         /* call place on each space in the first free column. will need to be making copies of the board */
-	val col_to_place : int = open_spots.get(0)(0) as Int;	
-	count = place(col_to_place, open_spots);
-	return count;
+	if(open_spots.size()>0){
+	Console.OUT.println(open_spots.get(0));
+		val col_to_place : int = open_spots.get(0)(0) as Int;	
+		val count : int = place(col_to_place, open_spots, 0n, num_queens);
+		return count;
+	}
+	return 0n;
     }
 
     /** Place a queen asynchronously in each of the spaces free in the first column (-,x) */
-    public def place(column: int, board:ArrayList[Point{rank==2}]) : int 
+    public def place(column: int, board:ArrayList[Point{rank==2}], carry: int, queens:int) : int 
     {
  
 	/* Steps:
@@ -72,13 +73,24 @@ public class Solver
 	 * call place once for each of the N rows in the first column, and sum the results
          */
 
+	var count:int = carry;	
+	var num_queens:int = queens;
+
  	for(var i:int = 0n;i<board.size();i++){
 		// Verify that we're only going to attempt to place
 		// queens in the col_to_place
+        	Console.OUT.println(board.get(i));
 		if(column == board.get(i)(0) as Int){
 		//Asynchronously place queen with a copy of the board
-        		val new_board : ArrayList[Point{rank==2}];  // Arraylist of currently open points
-			new_board = board;		
+        		Console.OUT.println(count);
+			val new_board : ArrayList[Point{rank==2}];  // Arraylist of currently open points
+			new_board = board.clone();	
+			block_queen(board.get(i), new_board);
+			num_queens--;
+			if(num_queens==0n){
+				count++;
+			}
+        		Console.OUT.println(count);
 		}
 		// else evaluated when there are less than N free spaces
 		// in the column col_to_place. we can terminate the for loop.
@@ -87,7 +99,7 @@ public class Solver
 		}
 	}
 
-	return 0n;
+	return count;
     }
 
 
@@ -98,7 +110,7 @@ public class Solver
 	board.remove(point);
     }
 
-    public def block_queen(point: Point{rank==2}, size:int, board: ArrayList[Point{rank==2}]) 
+    public def block_queen(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) 
     {
     // Block all in same column
         for(var i:Int = 0n; i < board.size(); i++) {

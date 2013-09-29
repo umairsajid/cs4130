@@ -45,11 +45,8 @@ public class Solver
 	}
 
 	
-	Console.ERR.println(open_spots);
-
         /* call place on each space in the first free column. will need to be making copies of the board */
 	if(open_spots.size()>0){
-	Console.OUT.println(open_spots.get(0));
 		val col_to_place : int = open_spots.get(0)(0) as Int;	
 		val count : int = place(col_to_place, open_spots, 0n, num_queens);
 		return count;
@@ -79,18 +76,16 @@ public class Solver
  	for(var i:int = 0n;i<board.size();i++){
 		// Verify that we're only going to attempt to place
 		// queens in the col_to_place
-        	Console.OUT.println(board.get(i));
 		if(column == board.get(i)(0) as Int){
 		//Asynchronously place queen with a copy of the board
-        		Console.OUT.println(count);
 			val new_board : ArrayList[Point{rank==2}];  // Arraylist of currently open points
 			new_board = board.clone();	
 			block_queen(board.get(i), new_board);
 			num_queens--;
 			if(num_queens==0n){
-				count++;
+				return 1n;
 			}
-        		Console.OUT.println(count);
+			count += place(column+1n,new_board,count,num_queens);
 		}
 		// else evaluated when there are less than N free spaces
 		// in the column col_to_place. we can terminate the for loop.
@@ -98,7 +93,6 @@ public class Solver
 			break;
 		}
 	}
-
 	return count;
     }
 

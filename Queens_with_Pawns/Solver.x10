@@ -46,14 +46,14 @@ public class Solver
 	
 	if(open_spots.size()>0){
 		val col_to_place : int = open_spots.get(0)(1) as Int;	
-		val count : int = place(col_to_place, open_spots, 0n, num_queens);
+		val count : int = place(col_to_place, open_spots, num_queens);
 		return count;
 	}
 	return 0n;
     }
 
     /** Place a queen asynchronously in each of the spaces free in the first column (-,x) */
-    public def place(column: int, board:ArrayList[Point{rank==2}], carry: int, queens:int) : int 
+    public def place(column: int, board:ArrayList[Point{rank==2}], queens:int) : int 
     {
  
 	/* Steps:
@@ -68,9 +68,8 @@ public class Solver
 	 * call place once for each of the N rows in the first column, and sum the results
          */
 
-	var count:int = carry;	
-	var num_queens:int = queens;
-	Console.OUT.println("Q's :" + queens);
+	var count:int = 0n;	
+	var num_queens:int = queens;	
 
  	for(var i:int = 0n;i<board.size();i++){
 		// Verify that we're only going to attempt to place
@@ -79,13 +78,16 @@ public class Solver
 		//Asynchronously place queen with a copy of the board
 			val new_board : ArrayList[Point{rank==2}];  // Arraylist of currently open points
 			new_board = board.clone();	
-			Console.OUT.println("orig: \n" + new_board);
+			//Console.OUT.println("orig: \n" + new_board);
 			block_queen(board.get(i), new_board);
-			Console.OUT.println("new: \n" + new_board);
+			//Console.OUT.println("new: \n" + new_board);
+			Console.OUT.println("Q's :" + queens);
+			Console.OUT.println("C :" + count);
 			if(num_queens==0n){
 				return 1n;
-			}
-			count += place(column+1n,new_board,count,num_queens-1n);
+ 			}
+			count += place(column+1n,new_board,num_queens-1n);
+			Console.OUT.println("C :" + count);
 		}
 		// else evaluated when there are less than N free spaces
 		// in the column col_to_place. we can terminate the for loop.
@@ -113,11 +115,6 @@ public class Solver
 			board.set(pt,i);	
 		}
 	}
-//        for(var i:Int = 0n; i < board.size(); i++) {
-//		if(board.get(i)(0).equals(pt(0))){
-//			block(board.get(i), board);	
-//		}
-//	}
 	while(board.remove(pt)){continue;}
     }
 

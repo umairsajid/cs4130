@@ -24,7 +24,6 @@ public class Solver
     {
         val open_spots   : ArrayList[Point{rank==2}];  // Arraylist of currently open points
         val num_queens   : int = size;                  //number of queens successfully placed 
-        val board_size   : int = size;                  // size of the board i.e. N 
 
 	open_spots = new ArrayList[Point{rank==2}]();
 
@@ -46,14 +45,14 @@ public class Solver
 	
 	if(open_spots.size()>0){
 		val col_to_place : int = open_spots.get(0)(1) as Int;	
-		val count : int = place(col_to_place, open_spots, num_queens);
+		val count : int = place(col_to_place, open_spots, num_queens, size);
 		return count;
 	}
 	return 0n;
     }
 
     /** Place a queen asynchronously in each of the spaces free in the first column (-,x) */
-    public def place(column: int, board:ArrayList[Point{rank==2}], queens:int) : int 
+    public def place(column: int, board:ArrayList[Point{rank==2}], queens:int, size: int) : int 
     {
  
 	/* Steps:
@@ -78,16 +77,17 @@ public class Solver
 		//Asynchronously place queen with a copy of the board
 			val new_board : ArrayList[Point{rank==2}];  // Arraylist of currently open points
 			new_board = board.clone();	
-			//Console.OUT.println("orig: \n" + new_board);
-			block_queen(board.get(i), new_board);
-			//Console.OUT.println("new: \n" + new_board);
-			Console.OUT.println("Q's :" + queens);
-			Console.OUT.println("C :" + count);
-			if(num_queens==0n){
+			//Console.OUT.println("\n orig: \n" + new_board);
+			//block_queen(board.get(i), new_board,size);
+			Console.OUT.println("new: \n" + new_board);
+			if(num_queens-1n==0n){
 				return 1n;
  			}
-			count += place(column+1n,new_board,num_queens-1n);
-			Console.OUT.println("C :" + count);
+			if(new_board.size()==0){
+				return 0n;
+			}
+
+			count += place(column+1n,new_board,num_queens-1n, size);
 		}
 		// else evaluated when there are less than N free spaces
 		// in the column col_to_place. we can terminate the for loop.
@@ -106,16 +106,32 @@ public class Solver
 	board.remove(point);
     }
 
-    public def block_queen(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) 
+    public def block_queen(point: Point{rank==2}, board: ArrayList[Point{rank==2}], size: int) 
     {
 	val pt: Point{rank==2} = [-1n,-2n];
         for(var i:Int = 0n; i < board.size(); i++) {
-		Console.OUT.println(board.get(i)(0) + "," +board.get(i)(1) + "   :::   "  + point(0) + "," +point(1));
-		if(board.get(i)(0).equals(point(0))||board.get(i)(1).equals(point(1))||(board.get(i)(0).equals((point(0)+i)) && board.get(i)(1).equals((point(1)+i)))||(board.get(i)(0).equals((point(0)-i)) && board.get(i)(1).equals((point(1)+i)))||(board.get(i)(0).equals((point(0)+i)) && board.get(i)(1).equals((point(1)-i)))||(board.get(i)(0).equals((point(0)-i)) && board.get(i)(1).equals((point(1)-i)))){
+		if(board.get(i)(0).equals(point(0))||board.get(i)(1).equals(point(1))||is_diag(point,board.get(i),size)){
 			board.set(pt,i);	
 		}
 	}
 	while(board.remove(pt)){continue;}
     }
 
+
+
+    public def is_diag(queen: Point{rank==2}, point: Point{rank==2}, size:int) : Boolean
+    {
+        for(var i:Int = 0n; i < size; i++) {
+		if(queen(0)==(point(0)+i)&&queen(1)==(point(1)+i)){
+			return true;
+		} else if(queen(0)==(point(0)+i)&&queen(1)==(point(1)-i)){
+			return true;
+		} else if(queen(0)==(point(0)-i)&&queen(1)==(point(1)+i)){
+			return true;
+		} else if(queen(0)==(point(0)-i)&&queen(1)==(point(1)-i)){
+			return true;
+		}
+	}
+	return false;
+    }
 }

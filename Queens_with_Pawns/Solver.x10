@@ -32,22 +32,20 @@ public class Solver
 	/* add all available spaces to our open spaces array */	
         for(var i:int = 0n; i < size; i++) {
 		for(var j:int = 0n;j<size; j++){ 
-			val pt : Point{rank==2} = [i,j];
+			val pt : Point{rank==2} = [j,i];
 			open_spots.add(pt);
 		}	
 	}
 	
 	/* Block pawn spaces */
 	while(pawns.size() > 0){
-		Console.OUT.print(".");
 		block(pawns.get(0), open_spots);
 		pawns.removeFirst();
 	}
 
 	
-        /* call place on each space in the first free column. will need to be making copies of the board */
 	if(open_spots.size()>0){
-		val col_to_place : int = open_spots.get(0)(0) as Int;	
+		val col_to_place : int = open_spots.get(0)(1) as Int;	
 		val count : int = place(col_to_place, open_spots, 0n, num_queens);
 		return count;
 	}
@@ -72,20 +70,22 @@ public class Solver
 
 	var count:int = carry;	
 	var num_queens:int = queens;
+	Console.OUT.println("Q's :" + queens);
 
  	for(var i:int = 0n;i<board.size();i++){
 		// Verify that we're only going to attempt to place
 		// queens in the col_to_place
-		if(column == board.get(i)(0) as Int){
+		if(column == board.get(i)(1) as Int){
 		//Asynchronously place queen with a copy of the board
 			val new_board : ArrayList[Point{rank==2}];  // Arraylist of currently open points
 			new_board = board.clone();	
+			Console.OUT.println("orig: \n" + new_board);
 			block_queen(board.get(i), new_board);
-			num_queens--;
+			Console.OUT.println("new: \n" + new_board);
 			if(num_queens==0n){
 				return 1n;
 			}
-			count += place(column+1n,new_board,count,num_queens);
+			count += place(column+1n,new_board,count,num_queens-1n);
 		}
 		// else evaluated when there are less than N free spaces
 		// in the column col_to_place. we can terminate the for loop.
@@ -106,27 +106,19 @@ public class Solver
 
     public def block_queen(point: Point{rank==2}, board: ArrayList[Point{rank==2}]) 
     {
-    // Block all in same column
+	val pt: Point{rank==2} = [-1n,-2n];
         for(var i:Int = 0n; i < board.size(); i++) {
-		//Remove point if column equals point column
-		if(board.get(i)(0)==point(0)){
-			block(board.get(i), board);	
+		Console.OUT.println(board.get(i)(0) + "," +board.get(i)(1) + "   :::   "  + point(0) + "," +point(1));
+		if(board.get(i)(0).equals(point(0))||board.get(i)(1).equals(point(1))||(board.get(i)(0).equals((point(0)+i)) && board.get(i)(1).equals((point(1)+i)))||(board.get(i)(0).equals((point(0)-i)) && board.get(i)(1).equals((point(1)+i)))||(board.get(i)(0).equals((point(0)+i)) && board.get(i)(1).equals((point(1)-i)))||(board.get(i)(0).equals((point(0)-i)) && board.get(i)(1).equals((point(1)-i)))){
+			board.set(pt,i);	
 		}
 	}
-    // Block all in same row
-        for(var j:Int = 0n; j < board.size(); j++) {
-		//Remove point if row equals point row
-		if(board.get(j)(0)==point(0)){
-			block(board.get(j), board);	
-		}
-	}
-    // Block all on diagonal
-        for(var k:Int = 0n; k < board.size(); k++) {
-		//Remove point if (x,y) = (point_x + k, point_y + k) 
-		if(board.get(k)(0)==point(0)){
-			block(board.get(k), board);	
-		}
-	}
+//        for(var i:Int = 0n; i < board.size(); i++) {
+//		if(board.get(i)(0).equals(pt(0))){
+//			block(board.get(i), board);	
+//		}
+//	}
+	while(board.remove(pt)){continue;}
     }
 
 }
